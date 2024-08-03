@@ -1,0 +1,189 @@
+div { 
+  width: 800px;
+  padding: 10px;
+}
+
+table {
+  width: 90%;
+  height: 80%;
+  border: solid 1px rgb(235, 232, 232);
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 0px rgb(211, 208, 208);
+  border-collapse: collapse; /* Para asegurar que los bordes no se dupliquen */
+}
+
+thead {
+  height: 50px;
+  background-color: #f4f4f4; /* Color de fondo opcional para los encabezados */
+}
+ 
+th, td {
+  width: 100px;
+  text-align: left; /* Alinea el texto a la izquierda en los encabezados y celdas */
+  padding: 8px; /* Espacio alrededor del texto en celdas y encabezados */
+  border-bottom: solid 1px rgb(235, 232, 232); /* Borde en la parte inferior de las celdas */
+}
+
+th {
+  background-color: #fafafa; /* Color de fondo opcional para los encabezados */
+  font-weight: bold; /* Opcional: hacer el texto de los encabezados en negrita */
+}
+
+.itemBtn{
+  width: 150px;
+}
+
+.itemStatus {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  color: white;
+  height: 20px;
+}
+
+.itemStatus.activo {
+  background: #24bd71d5; 
+}
+
+.itemStatus.inactivo {
+  background: #bd2424d5; 
+}
+
+.paginacion {
+  text-align: right;
+  height: 20px;
+  color: rgb(163, 159, 159);
+}
+
+.paginacion span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: block; 
+  text-align: right;
+}
+
+.btnOpciones{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button{
+  height: 27px;
+  background: none;
+  border-style: none;
+  border-radius: 150px;
+  cursor: pointer;
+}
+
+.btnAddMethod{
+  width: 90%;
+  height: 50px;
+  padding: 20px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.MethodPago{
+  width: 170px;
+  height: fit-content;
+  padding: 15px;
+  background: rgb(6, 155, 255);
+  color: white;
+  border-radius: 0px;
+  box-shadow: 0px 5px 0px 0px black;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* Estilos para la ventana modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+h2.modal-title {
+  text-align: center;
+  color: #333;
+}
+
+form.payment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+form.payment-form label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+}
+
+form.payment-form input[type="text"],
+form.payment-form input[type="file"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+form.payment-form button {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form.payment-form button:hover {
+  background-color: #45a049;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

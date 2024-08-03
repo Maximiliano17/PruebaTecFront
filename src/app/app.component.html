@@ -1,0 +1,128 @@
+<div>
+  <section class="btnAddMethod">
+    <button class="MethodPago">MÉTODOS DE PAGO</button>
+  </section>
+  <!-- Tabla de datos -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCIÓN</th>
+        <th>ESTADO</th>
+        <th class="itemBtn"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td> 
+        <td>{{ item.description }}</td>
+        <td>
+          <section [ngClass]="{
+            'itemStatus': true,
+            'activo': getStatusText(item.status_id) === 'Activo',
+            'inactivo': getStatusText(item.status_id) === 'Inactivo'
+          }">
+            {{ getStatusText(item.status_id) }}
+          </section>         
+        </td>
+        <td>
+          <section class="btnOpciones">
+            <button (click)="openEditModal(item.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(6, 155, 255)" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+              </svg>
+            </button>
+            <button (click)="onView(item.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#24bd71d5" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+              </svg>
+            </button>
+            <button (click)="onDelete(item.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ec1f63" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+              </svg>
+            </button>
+          </section>
+        </td>
+      </tr>
+      <tr class="paginacion">
+      
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Ventana Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 class="modal-title">Métodos de Pago</h2>
+    <form class="payment-form" (ngSubmit)="onSubmit()">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" [(ngModel)]="newData.name" name="name" placeholder="Introduce el nombre" required>
+      
+      <label for="description">Descripción:</label>
+      <input type="text" id="description" [(ngModel)]="newData.description" name="description" placeholder="Introduce la descripción" required>
+      
+      <label for="icono">Ícono:</label>
+      <input type="text" id="icono" [(ngModel)]="newData.icono" name="icono" placeholder="Introduce la URL del icono" required>
+      
+      <label for="filesToUpload">Archivos para Subir:</label>
+      <input type="file" id="filesToUpload" (change)="onFileChange($event)" name="filesToUpload">
+      
+      <label for="nameFolder">Nombre de Carpeta:</label>
+      <input type="text" id="nameFolder" [(ngModel)]="newData.nameFolder" name="nameFolder" placeholder="Introduce el nombre de la carpeta" required>
+      
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</div>  
+
+<!-- Ventana Modal de Edición -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close-edit">&times;</span>
+    <h2 class="modal-title">Editar Método de Pago</h2>
+    <form class="payment-form" (ngSubmit)="onUpdate()">
+      <input type="hidden" [(ngModel)]="editData.id" name="id">
+      
+      <label for="editName">Nombre:</label>
+      <input type="text" id="editName" [(ngModel)]="editData.name" name="name" placeholder="Introduce el nombre" required>
+      
+      <label for="editDescription">Descripción:</label>
+      <input type="text" id="editDescription" [(ngModel)]="editData.description" name="description" placeholder="Introduce la descripción" required>
+      
+      <label for="editIcono">Ícono:</label>
+      <input type="text" id="editIcono" [(ngModel)]="editData.icono" name="icono" placeholder="Introduce la URL del icono" required>
+      
+      <label for="editFilesToUpload">Archivos para Subir:</label>
+      <input type="file" id="editFilesToUpload" (change)="onFileChange($event)" name="filesToUpload">
+      
+      <label for="editNameFolder">Nombre de Carpeta:</label>
+      <input type="text" id="editNameFolder" [(ngModel)]="editData.nameFolder" name="nameFolder" placeholder="Introduce el nombre de la carpeta" required>
+      
+      <button type="submit">Actualizar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para visualizar detalles del método de pago -->
+<div id="viewModal" class="modal">
+  <div class="modal-content">
+    <span class="close-view">&times;</span>
+    <h2>Detalles del Método de Pago</h2>
+    <div>
+      <p><strong>ID:</strong> {{ viewingData.id }}</p>
+      <p><strong>Nombre:</strong> {{ viewingData.name }}</p>
+      <p><strong>Descripción:</strong> {{ viewingData.description }}</p>
+      <p><strong>Icono:</strong> <img [src]="viewingData.icono" alt="Icono" width="100"></p>
+      <p><strong>Estado:</strong> {{ getStatusText(viewingData.status_id) }}</p>
+      <p><strong>Creado en:</strong> {{ viewingData.created_at }}</p>
+      <p><strong>Actualizado en:</strong> {{ viewingData.updated_at }}</p>
+      <p><strong>Eliminado en:</strong> {{ viewingData.deleted_at || 'N/A' }}</p>
+    </div>
+  </div>
+</div>
